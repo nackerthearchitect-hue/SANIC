@@ -1,0 +1,6 @@
+local remote = game:GetService("Players").LocalPlayer.Character:WaitForChild("SonicRemote")
+
+	for i = 1, 100 do -- how many times you want
+		remote:FireServer("HyperFlash")
+		task.wait(0)
+	end
