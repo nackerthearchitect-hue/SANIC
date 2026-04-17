@@ -1,6 +1,31 @@
-local remote = game:GetService("Players").LocalPlayer.Character:WaitForChild("SonicRemote")
+local Tool = Instance.new("Tool")
+Tool.Name = "10 TROLLOIN DAMAGE?!"
+Tool.RequiresHandle = true
 
-	for i = 1, 100 do -- how many times you want
-		remote:FireServer("HyperFlash")
-		task.wait(0)
-	end
+local Handle = Instance.new("Part")
+Handle.Size = Vector3.new(1, 1, 1)
+Handle.BrickColor = BrickColor.new("Bright blue")
+Handle.Anchored = false
+Handle.CanCollide = false
+Handle.Name = "Handle"
+Handle.Parent = Tool
+
+local function onActivated()
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character
+    if not character then return end
+
+    local remote = character:FindFirstChild("SonicRemote")
+    if not remote then
+        warn("SonicRemote not found!")
+        return
+    end
+
+    for i = 1, 100 do
+        remote:FireServer("HyperFlash")
+        task.wait(0)
+    end
+end
+
+Tool.Activated:Connect(onActivated)
+Tool.Parent = game:GetService("Players").LocalPlayer:WaitForChild("Backpack")
