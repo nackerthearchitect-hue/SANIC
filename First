@@ -1,0 +1,15 @@
+local player = game:GetService("Players").LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+
+local folder = workspace.WegaChallengeMapStage1.WegaCounts
+
+while true do
+	for _, part in ipairs(folder:GetChildren()) do
+		task.spawn(function()
+			firetouchinterest(part, hrp, 0)
+			firetouchinterest(part, hrp, 1)
+		end)
+	end
+	task.wait(0.5) -- adjust speed (lower = faster, but risk of drop)
+end
