@@ -1,229 +1,250 @@
---[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
-]=]
+local Players = game:GetService("Players")
+local ContentProvider = game:GetService("ContentProvider")
+local TweenService = game:GetService("TweenService")
+local Debris = game:GetService("Debris")
+local RunService = game:GetService("RunService")
 
--- Instances: 22 | Scripts: 1 | Modules: 0 | Tags: 0
-local G2L = {};
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
--- StarterGui.ScreenGui
-G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
-G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
-G2L["1"]["ResetOnSpawn"] = false
+math.randomseed(tick())
 
--- StarterGui.ScreenGui.FrameMainPage
-G2L["2"] = Instance.new("Frame", G2L["1"]);
-G2L["2"]["BorderSizePixel"] = 0;
-G2L["2"]["BackgroundColor3"] = Color3.fromRGB(100, 100, 100);
-G2L["2"]["Size"] = UDim2.new(0, 246, 0, 309);
-G2L["2"]["Position"] = UDim2.new(0.67539, -31, 0.17361, 10);
-G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["2"]["Name"] = [[FrameMainPage]];
-G2L["2"]["Active"] = true
+local slideshow = {
+	"http://www.roblox.com/asset/?id=14743518329",
+	"http://www.roblox.com/asset/?id=14743518329"
+}
+local finalImage = "http://www.roblox.com/asset/?id=14743518329"
+local soundId = "rbxassetid://5409360995"
 
+-- cleanup antigo
+for _, v in pairs(playerGui:GetChildren()) do
+	if tostring(v.Name):find("Scary") then
+		pcall(function() v:Destroy() end)
+	end
+end
 
--- StarterGui.ScreenGui.FrameMainPage.UICorner
-G2L["3"] = Instance.new("UICorner", G2L["2"]);
+-- preload com retries
+local function preload(asset, tries)
+	tries = tries or 3
+	for i = 1, tries do
+		local ok = pcall(function() ContentProvider:PreloadAsync({asset}) end)
+		if ok then return true end
+		wait(0.35)
+	end
+	return false
+end
 
+for i, id in ipairs(slideshow) do
+	local ok = preload(id, 4)
+	warn(string.format("[Scary] preload slide %d -> %s (ok=%s)", i, id, tostring(ok)))
+end
+local okFinal = preload(finalImage, 4)
+warn("[Scary] preload final -> " .. tostring(okFinal))
 
+-- cria GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ScaryGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+ScreenGui.Parent = playerGui
 
--- StarterGui.ScreenGui.FrameMainPage.TextLabel
-G2L["4"] = Instance.new("TextLabel", G2L["2"]);
-G2L["4"]["TextWrapped"] = true;
-G2L["4"]["BorderSizePixel"] = 0;
-G2L["4"]["TextSize"] = 18;
-G2L["4"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["4"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["4"]["Size"] = UDim2.new(0, 246, 0, 45);
-G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["4"]["Text"] = [[TROLLGE CONVENTIONS SCRIPT]];
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextLabel.UICorner
-G2L["5"] = Instance.new("UICorner", G2L["4"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton
-G2L["6"] = Instance.new("TextButton", G2L["2"]);
-G2L["6"]["TextWrapped"] = true;
-G2L["6"]["BorderSizePixel"] = 0;
-G2L["6"]["TextSize"] = 14;
-G2L["6"]["TextScaled"] = true;
-G2L["6"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["6"]["Size"] = UDim2.new(0, 200, 0, 50);
-G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["Text"] = [[Give 1000 Rings (For Sonic Only)]];
-G2L["6"]["Position"] = UDim2.new(0.0935, 0, 0.20364, 0);
-G2L["6"]["MouseButton1Down"]:Connect(function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/Sanic'))()
+task.delay(20, function()
+	if ScreenGui and ScreenGui.Parent then
+		pcall(function()
+			if sound then sound:Stop() end
+			ScreenGui:Destroy()
+		end)
+	end
 end)
 
--- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
-G2L["7"] = Instance.new("UICorner", G2L["6"]);
+local frame = Instance.new("Frame")
+frame.Name = "ScaryFrame"
+frame.Size = UDim2.new(1,0,1,0)
+frame.Position = UDim2.new(0,0,0,0)
+frame.BackgroundColor3 = Color3.new(0,0,0)
+frame.BorderSizePixel = 0
+frame.ZIndex = 4
+frame.Parent = ScreenGui
 
+local img = Instance.new("ImageLabel")
+img.Name = "ScaryImage"
+img.Size = UDim2.new(1,0,1,0)
+img.Position = UDim2.new(0,0,0,0)
+img.BackgroundTransparency = 1
+img.ScaleType = Enum.ScaleType.Stretch
+img.ZIndex = 5
+img.Parent = frame
+img.Image = slideshow[1]
 
+-- som robusto
+local sound = Instance.new("Sound")
+sound.Name = "ScarySound"
+sound.SoundId = soundId
+sound.Volume = 1
+sound.Looped = false
+sound.RollOffMode = Enum.RollOffMode.Inverse
+sound.Parent = frame
 
--- StarterGui.ScreenGui.FrameMainPage.TextButton
-G2L["8"] = Instance.new("TextButton", G2L["2"]);
-G2L["8"]["TextWrapped"] = true;
-G2L["8"]["BorderSizePixel"] = 0;
-G2L["8"]["TextSize"] = 14;
-G2L["8"]["TextScaled"] = true;
-G2L["8"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["8"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["8"]["Size"] = UDim2.new(0, 200, 0, 50);
-G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["8"]["Text"] = [[10T HyperFlash TOOL (For Sonic Only)]];
-G2L["8"]["Position"] = UDim2.new(0.0935, 0, 0.40727, 0);
-G2L["8"]["MouseButton1Down"]:Connect(function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/SANIX'))()
-end)
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
-G2L["9"] = Instance.new("UICorner", G2L["8"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret
-G2L["a"] = Instance.new("TextButton", G2L["2"]);
-G2L["a"]["TextWrapped"] = true;
-G2L["a"]["BorderSizePixel"] = 0;
-G2L["a"]["TextSize"] = 14;
-G2L["a"]["TextScaled"] = true;
-G2L["a"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["a"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Bangers.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["a"]["Size"] = UDim2.new(0, 54, 0, 32);
-G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["a"]["Text"] = [[Secret Menu???]];
-G2L["a"]["Name"] = [[TextButtonSecret]];
-G2L["a"]["Position"] = UDim2.new(0.39024, 0, 0.84, 0);
-G2L["a"]["MouseButton1Down"]:Connect(function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/secret'))()
-end)
-
--- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret.UICorner
-G2L["b"] = Instance.new("UICorner", G2L["a"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret.Script
-G2L["c"] = Instance.new("Script", G2L["a"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.UIDragDetector
-G2L["d"] = Instance.new("UIDragDetector", G2L["2"]);
-G2L["d"]["DragUDim2"] = UDim2.new(0, -9, 0, 13);
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextLabel
-G2L["e"] = Instance.new("TextLabel", G2L["2"]);
-G2L["e"]["TextWrapped"] = true;
-G2L["e"]["BorderSizePixel"] = 0;
-G2L["e"]["TextSize"] = 14;
-G2L["e"]["TextScaled"] = true;
-G2L["e"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["e"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
-G2L["e"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["e"]["Size"] = UDim2.new(0, 200, 0, 23);
-G2L["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["e"]["Text"] = [[WEGA]];
-G2L["e"]["Position"] = UDim2.new(0.0935, 0, 0.6028, 0);
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextLabel.UICorner
-G2L["f"] = Instance.new("UICorner", G2L["e"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton
-G2L["10"] = Instance.new("TextButton", G2L["2"]);
-G2L["10"]["TextWrapped"] = true;
-G2L["10"]["BorderSizePixel"] = 0;
-G2L["10"]["TextSize"] = 14;
-G2L["10"]["TextScaled"] = true;
-G2L["10"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["10"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["10"]["Size"] = UDim2.new(0, 88, 0, 36);
-G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["10"]["Text"] = [[1st Stage]];
-G2L["10"]["Position"] = UDim2.new(0.12195, 0, 0.69938, 0);
-G2L["10"]["MouseButton1Down"]:Connect(function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/First'))()
-end)
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
-G2L["11"] = Instance.new("UICorner", G2L["10"]);
-
-
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton
-G2L["12"] = Instance.new("TextButton", G2L["2"]);
-G2L["12"]["TextWrapped"] = true;
-G2L["12"]["BorderSizePixel"] = 0;
-G2L["12"]["TextSize"] = 14;
-G2L["12"]["TextScaled"] = true;
-G2L["12"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["12"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
-G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["12"]["Size"] = UDim2.new(0, 88, 0, 36);
-G2L["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["12"]["Text"] = [[2nd Stage]];
-G2L["12"]["Position"] = UDim2.new(0.52033, 0, 0.69938, 0);
-G2L["12"]["MouseButton1Down"]:Connect(function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/Second'))()
-end)
-
--- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
-G2L["13"] = Instance.new("UICorner", G2L["12"]);
-
-
-
--- StarterGui.ScreenGui.CloseNOpen
-G2L["14"] = Instance.new("TextButton", G2L["1"]);
-G2L["14"]["BorderSizePixel"] = 0;
-G2L["14"]["TextSize"] = 40;
-G2L["14"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["14"]["BackgroundColor3"] = Color3.fromRGB(100, 100, 100);
-G2L["14"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
-G2L["14"]["Size"] = UDim2.new(0, 66, 0, 50);
-G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["14"]["Text"] = [[TC]];
-G2L["14"]["Name"] = [[CloseNOpen]];
-G2L["14"]["Position"] = UDim2.new(0.02358, 0, 0.44618, 0);
-
-
--- StarterGui.ScreenGui.CloseNOpen.UICorner
-G2L["15"] = Instance.new("UICorner", G2L["14"]);
-
-
-
--- StarterGui.ScreenGui.LocalScript
-G2L["16"] = Instance.new("LocalScript", G2L["1"]);
-
-
-
--- StarterGui.ScreenGui.LocalScript
-local function C_16()
-local script = G2L["16"];
-	local Frame = script.Parent.FrameMainPage
-	local Button = script.Parent.CloseNOpen
-	
-	Button.MouseButton1Click:Connect(function()
-		Frame.Visible = not Frame.Visible
+local function safePlay(s)
+	pcall(function()
+		if s.IsLoaded == false then
+			pcall(function() s.Loaded:Wait(2) end)
+		end
+		s:Play()
 	end)
-end;
-task.spawn(C_16);
+end
+safePlay(sound)
+spawn(function()
+	local tries = 0
+	while ScreenGui.Parent and tries < 8 do
+		if not pcall(function() return sound.IsPlaying end) or not sound.IsPlaying then
+			safePlay(sound)
+		end
+		tries = tries + 1
+		wait(0.8)
+	end
+end)
 
-return G2L["1"], require;
+-- botão FECHAR (cada clique muda a imagem e o botão dá uma fugidinha leve)
+local closeBtn = Instance.new("TextButton")
+closeBtn.Name = "CloseButton"
+closeBtn.Size = UDim2.new(0,160,0,56)
+closeBtn.AnchorPoint = Vector2.new(0.5,0.5)
+closeBtn.Position = UDim2.new(0.5,0,0.88,0)
+closeBtn.Text = "ESCAPE"
+closeBtn.TextSize = 24
+closeBtn.Font = Enum.Font.SourceSansBold
+closeBtn.BackgroundColor3 = Color3.fromRGB(180,20,20)
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.ZIndex = 7
+closeBtn.Parent = frame
+
+local clicks = 0
+local maxClicks = 8
+local idx = 1
+
+local function randomPosForButton()
+	-- usa scale pra evitar problemas com offsets em resoluções diferentes
+	local sx = math.random(10,90)/100
+	local sy = math.random(60,92)/100
+	return UDim2.new(sx, 0, sy, 0)
+end
+
+local function tinyFlee()
+	local newPos = randomPosForButton()
+	local tween = TweenService:Create(closeBtn, TweenInfo.new(0.18, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = newPos})
+	tween:Play()
+end
+
+local function showImage(i)
+	if i < 1 then i = 1 end
+	if i > #slideshow then i = ((i-1) % #slideshow) + 1 end
+	local id = slideshow[i]
+	pcall(function() ContentProvider:PreloadAsync({id}) end)
+	img.Image = id
+	warn("[Scary] mostrando slide "..tostring(i).." -> "..tostring(id))
+end
+
+-- inicia com primeira imagem
+showImage(idx)
+
+closeBtn.MouseButton1Click:Connect(function()
+	clicks = clicks + 1
+
+	-- troca a imagem
+	idx = idx + 1
+	if idx > #slideshow then idx = 1 end
+	showImage(idx)
+
+	-- flash branco curto
+	frame.BackgroundColor3 = Color3.new(1,1,1)
+	task.delay(0.06, function()
+		if frame and frame.Parent then frame.BackgroundColor3 = Color3.new(0,0,0) end
+	end)
+
+	-- beep curto
+	pcall(function()
+		local beep = Instance.new("Sound", frame)
+		beep.SoundId = soundId
+		beep.Volume = 1
+		beep.Looped = false
+		beep:Play()
+		Debris:AddItem(beep, 1.2)
+	end)
+
+	-- faz o botão dar uma fugidinha leve (mantém clicável)
+	pcall(tinyFlee)
+
+	-- se chegou no final dos cliques, faz a cena KKK e troca pra final
+	if clicks >= maxClicks then
+		pcall(function() closeBtn:Destroy() end)
+		pcall(function() sound:Stop() end)
+
+		local label = Instance.new("TextLabel")
+		label.Size = UDim2.new(0.6,0,0.25,0)
+		label.Position = UDim2.new(0.2,0,0.375,0)
+		label.BackgroundTransparency = 1
+		label.Text = "01010100 01001000 01001001 01010011 00100000 01000100 01001111 01000101 01010011 00100000 01001110 01001111 01010100 00100000 01000010 01000101 01001100 01001111 01001110 01000111 00100000 01010100 01001111 00100000 01000001 01001110 01011001 01001111 01001110 01000101 00101100 00100000 01001110 01001111 01010010 00100000 01000100 01001111 00100000 01001001"
+		label.TextColor3 = Color3.fromRGB(255,255,0)
+		label.TextScaled = true
+		label.Font = Enum.Font.Cartoon
+		label.ZIndex = 50
+		label.Parent = frame
+
+		spawn(function()
+			label.TextTransparency = 1
+			for i = 1, 10 do
+				label.TextTransparency = label.TextTransparency - 0.09
+				wait(0.06)
+			end
+			for _ = 1, 6 do
+				label.TextSize = 72
+				wait(0.06)
+				label.TextSize = 60
+				wait(0.06)
+			end
+		end)
+
+		task.delay(1.5, function()
+			pcall(function() ContentProvider:PreloadAsync({finalImage}) end)
+			img.Image = finalImage
+			pcall(function() safePlay(sound) end)
+
+			local ttk = Instance.new("TextLabel")
+			ttk.Size = UDim2.new(0,300,0,30)
+			ttk.Position = UDim2.new(0.68,0,0.92,0)
+			ttk.BackgroundTransparency = 1
+			ttk.Text = "IT WAS A MYTH"
+			ttk.TextColor3 = Color3.fromRGB(255,0,0)
+			ttk.TextScaled = true
+			ttk.Font = Enum.Font.Cartoon
+			ttk.ZIndex = 60
+			ttk.Parent = frame
+		end)
+	end
+end)
+
+-- debug: se a imagem estiver vazia mostra aviso temporário
+spawn(function()
+	while ScreenGui.Parent do
+		if not img.Image or img.Image == "" then
+			if not ScreenGui:FindFirstChild("ScaryDebug") then
+				local dbg = Instance.new("TextLabel")
+				dbg.Name = "ScaryDebug"
+				dbg.Size = UDim2.new(0.6,0,0,28)
+				dbg.Position = UDim2.new(0.02,0,0.02,0)
+				dbg.BackgroundTransparency = 0.6
+				dbg.BackgroundColor3 = Color3.new(0,0,0)
+				dbg.TextColor3 = Color3.new(1,0,0)
+				dbg.TextScaled = true
+				dbg.Text = "NULL??"
+				dbg.Parent = ScreenGui
+				Debris:AddItem(dbg, 4)
+			end
+		end
+		wait(1.2)
+	end
+end)
+
+print("[Scary] NULL??.")
