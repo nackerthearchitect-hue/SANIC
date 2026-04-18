@@ -107,7 +107,7 @@ G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["a"]["Text"] = [[Secret Menu???]];
 G2L["a"]["Name"] = [[TextButtonSecret]];
 G2L["a"]["Position"] = UDim2.new(0.39024, 0, 0.84, 0);
-G2L["6"]["MouseButton1Down"]:Connect(function()
+G2L["a"]["MouseButton1Down"]:Connect(function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/secret'))()
 end)
 
