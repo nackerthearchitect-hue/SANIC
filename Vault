@@ -1,0 +1,229 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+
+-- Instances: 22 | Scripts: 1 | Modules: 0 | Tags: 0
+local G2L = {};
+
+-- StarterGui.ScreenGui
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+G2L["1"]["ResetOnSpawn"] = false
+
+-- StarterGui.ScreenGui.FrameMainPage
+G2L["2"] = Instance.new("Frame", G2L["1"]);
+G2L["2"]["BorderSizePixel"] = 0;
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(100, 100, 100);
+G2L["2"]["Size"] = UDim2.new(0, 246, 0, 309);
+G2L["2"]["Position"] = UDim2.new(0.67539, -31, 0.17361, 10);
+G2L["2"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["2"]["Name"] = [[FrameMainPage]];
+G2L["2"]["Active"] = true
+
+
+-- StarterGui.ScreenGui.FrameMainPage.UICorner
+G2L["3"] = Instance.new("UICorner", G2L["2"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextLabel
+G2L["4"] = Instance.new("TextLabel", G2L["2"]);
+G2L["4"]["TextWrapped"] = true;
+G2L["4"]["BorderSizePixel"] = 0;
+G2L["4"]["TextSize"] = 18;
+G2L["4"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["4"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["Size"] = UDim2.new(0, 246, 0, 45);
+G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["Text"] = [[TROLLGE CONVENTIONS SCRIPT]];
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextLabel.UICorner
+G2L["5"] = Instance.new("UICorner", G2L["4"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton
+G2L["6"] = Instance.new("TextButton", G2L["2"]);
+G2L["6"]["TextWrapped"] = true;
+G2L["6"]["BorderSizePixel"] = 0;
+G2L["6"]["TextSize"] = 14;
+G2L["6"]["TextScaled"] = true;
+G2L["6"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["6"]["Size"] = UDim2.new(0, 200, 0, 50);
+G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6"]["Text"] = [[Give 1000 Rings (For Sonic Only)]];
+G2L["6"]["Position"] = UDim2.new(0.0935, 0, 0.20364, 0);
+G2L["6"]["MouseButton1Down"]:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/Sanic'))()
+end)
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
+G2L["7"] = Instance.new("UICorner", G2L["6"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton
+G2L["8"] = Instance.new("TextButton", G2L["2"]);
+G2L["8"]["TextWrapped"] = true;
+G2L["8"]["BorderSizePixel"] = 0;
+G2L["8"]["TextSize"] = 14;
+G2L["8"]["TextScaled"] = true;
+G2L["8"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["8"]["Size"] = UDim2.new(0, 200, 0, 50);
+G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8"]["Text"] = [[10T HyperFlash TOOL (For Sonic Only)]];
+G2L["8"]["Position"] = UDim2.new(0.0935, 0, 0.40727, 0);
+G2L["8"]["MouseButton1Down"]:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/SANIX'))()
+end)
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
+G2L["9"] = Instance.new("UICorner", G2L["8"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret
+G2L["a"] = Instance.new("TextButton", G2L["2"]);
+G2L["a"]["TextWrapped"] = true;
+G2L["a"]["BorderSizePixel"] = 0;
+G2L["a"]["TextSize"] = 14;
+G2L["a"]["TextScaled"] = true;
+G2L["a"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/Bangers.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["a"]["Size"] = UDim2.new(0, 54, 0, 32);
+G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a"]["Text"] = [[Secret Menu???]];
+G2L["a"]["Name"] = [[TextButtonSecret]];
+G2L["a"]["Position"] = UDim2.new(0.39024, 0, 0.84, 0);
+G2L["a"]["MouseButton1Down"]:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/secret'))()
+end)
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret.UICorner
+G2L["b"] = Instance.new("UICorner", G2L["a"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButtonSecret.Script
+G2L["c"] = Instance.new("Script", G2L["a"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.UIDragDetector
+G2L["d"] = Instance.new("UIDragDetector", G2L["2"]);
+G2L["d"]["DragUDim2"] = UDim2.new(0, -9, 0, 13);
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextLabel
+G2L["e"] = Instance.new("TextLabel", G2L["2"]);
+G2L["e"]["TextWrapped"] = true;
+G2L["e"]["BorderSizePixel"] = 0;
+G2L["e"]["TextSize"] = 14;
+G2L["e"]["TextScaled"] = true;
+G2L["e"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["e"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["e"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e"]["Size"] = UDim2.new(0, 200, 0, 23);
+G2L["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e"]["Text"] = [[WEGA]];
+G2L["e"]["Position"] = UDim2.new(0.0935, 0, 0.6028, 0);
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextLabel.UICorner
+G2L["f"] = Instance.new("UICorner", G2L["e"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton
+G2L["10"] = Instance.new("TextButton", G2L["2"]);
+G2L["10"]["TextWrapped"] = true;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["TextSize"] = 14;
+G2L["10"]["TextScaled"] = true;
+G2L["10"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["10"]["Size"] = UDim2.new(0, 88, 0, 36);
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Text"] = [[1st Stage]];
+G2L["10"]["Position"] = UDim2.new(0.12195, 0, 0.69938, 0);
+G2L["10"]["MouseButton1Down"]:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/First'))()
+end)
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
+G2L["11"] = Instance.new("UICorner", G2L["10"]);
+
+
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton
+G2L["12"] = Instance.new("TextButton", G2L["2"]);
+G2L["12"]["TextWrapped"] = true;
+G2L["12"]["BorderSizePixel"] = 0;
+G2L["12"]["TextSize"] = 14;
+G2L["12"]["TextScaled"] = true;
+G2L["12"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["12"]["BackgroundColor3"] = Color3.fromRGB(125, 125, 125);
+G2L["12"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["12"]["Size"] = UDim2.new(0, 88, 0, 36);
+G2L["12"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["12"]["Text"] = [[2nd Stage]];
+G2L["12"]["Position"] = UDim2.new(0.52033, 0, 0.69938, 0);
+G2L["12"]["MouseButton1Down"]:Connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/nackerthearchitect-hue/SANIC/refs/heads/main/Second'))()
+end)
+
+-- StarterGui.ScreenGui.FrameMainPage.TextButton.UICorner
+G2L["13"] = Instance.new("UICorner", G2L["12"]);
+
+
+
+-- StarterGui.ScreenGui.CloseNOpen
+G2L["14"] = Instance.new("TextButton", G2L["1"]);
+G2L["14"]["BorderSizePixel"] = 0;
+G2L["14"]["TextSize"] = 40;
+G2L["14"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["14"]["BackgroundColor3"] = Color3.fromRGB(100, 100, 100);
+G2L["14"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["14"]["Size"] = UDim2.new(0, 66, 0, 50);
+G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["14"]["Text"] = [[TC]];
+G2L["14"]["Name"] = [[CloseNOpen]];
+G2L["14"]["Position"] = UDim2.new(0.02358, 0, 0.44618, 0);
+
+
+-- StarterGui.ScreenGui.CloseNOpen.UICorner
+G2L["15"] = Instance.new("UICorner", G2L["14"]);
+
+
+
+-- StarterGui.ScreenGui.LocalScript
+G2L["16"] = Instance.new("LocalScript", G2L["1"]);
+
+
+
+-- StarterGui.ScreenGui.LocalScript
+local function C_16()
+local script = G2L["16"];
+	local Frame = script.Parent.FrameMainPage
+	local Button = script.Parent.CloseNOpen
+	
+	Button.MouseButton1Click:Connect(function()
+		Frame.Visible = not Frame.Visible
+	end)
+end;
+task.spawn(C_16);
+
+return G2L["1"], require;
